@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="article"
+            type="com.example.mynews.data.entities.ArticleData" />
+    </data>
+
+    <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="7dp"
+        android:gravity="center_vertical"
+        app:cardElevation="@dimen/cardview_default_elevation"
+        app:cardCornerRadius="10dp">
+
+            <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="7dp">
+
+                <ImageView
+                android:id="@+id/news_img"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:imageUrl="@{article.urlToImage}"/>
+
+                <TextView
+                android:id="@+id/news_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news_img"
+                android:textSize="8pt"
+                android:text="@{article.author}"
+                tools:text="Author"/>
+
+                <TextView
+                android:id="@+id/news_publishedAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news_img"
+                android:layout_alignEnd="@id/news_img"
+                android:textSize="8pt"
+                android:text="@{article.publishedAt}"
+                tools:text="Published At"/>
+
+                <TextView
+                android:id="@+id/news_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news_author"
+                android:textSize="12pt"
+                android:textStyle="bold"
+                android:text="@{article.title}"
+                tools:text="Title"/>
+
+                <TextView
+                android:id="@+id/news_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news_title"
+                android:textSize="6pt"
+                android:text="@{article.description}"
+                tools:text="description"/>
+
+                <TextView
+                android:id="@+id/news_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/news_description"
+                android:textSize="8pt"
+                android:text="@{article.source.name}"
+                tools:text="source"/>
+
+                <ImageButton
+                android:id="@+id/button_bookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/news_img"
+                android:layout_alignParentEnd="true"
+                android:elevation="10dp"
+                app:bookmarkImage="@{article.isBookmarked}"/>
+
+                <ImageButton
+                android:id="@+id/button_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/news_img"
+                android:layout_alignParentStart="true"
+                android:elevation="10dp"
+                android:src="@drawable/ic_share"/>
+
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </FrameLayout>
+</layout>
