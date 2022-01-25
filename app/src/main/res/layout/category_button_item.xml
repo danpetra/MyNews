@@ -8,9 +8,9 @@
             name="category"
             type="String" />
 
- <!--       <variable
+        <variable
             name="clickListener"
-            type="com.example.news.overview.ButtonListener"/>-->
+            type="com.example.news.overview.ButtonListener"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
@@ -23,8 +23,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="button"
-            android:layout_margin="10dp"/>
-          <!--  android:onClick="@{()->clickListener.onClick(category)}"-->
+            android:layout_margin="10dp"
+          android:onClick="@{()->clickListener.onClick(category)}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

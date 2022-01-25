@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.mynews.R
 import com.example.mynews.databinding.FragmentTopBinding
+import com.example.news.overview.ButtonListener
 import com.example.news.overview.CategoryButtonAdapter
 import com.example.news.overview.adapters.CardviewItemAdapter
 import org.kodein.di.DIAware
@@ -42,7 +43,14 @@ class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener
         setHasOptionsMenu(true)
 
         binding.articlesList.adapter = CardviewItemAdapter(this)
-        binding.buttonList.adapter = CategoryButtonAdapter(this)
+        binding.buttonList.adapter = CategoryButtonAdapter(this, ButtonListener{
+            category-> run{viewModel.currentCategory = when (category)
+        {
+            viewModel.ALL_CATEGORIES -> null
+            else -> category
+        }
+            viewModel.getNews()}
+        })
 
         return root
     }

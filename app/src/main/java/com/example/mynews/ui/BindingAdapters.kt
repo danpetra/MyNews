@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
@@ -44,7 +45,7 @@ fun bindRecyclerViewButton(recyclerView: RecyclerView, categories: List<String>?
 }
 
 @BindingAdapter("apiStatus")
-fun bindStatus(statusImageView: ImageView,
+fun bindApiStatus(statusImageView: ImageView,
                status: Status?) {
     when (status) {
         Status.LOADING -> {
@@ -57,6 +58,73 @@ fun bindStatus(statusImageView: ImageView,
         }
         Status.OK -> {
             statusImageView.visibility = View.GONE
+        }
+        Status.NO_COUNTRY -> {
+            statusImageView.visibility = View.GONE
+        }
+    }
+}
+
+@BindingAdapter("apiStatus")
+fun bindApiStatus(statusTextView: TextView,
+                  status: Status?) {
+    when (status) {
+        Status.LOADING -> {
+            statusTextView.visibility = View.VISIBLE
+            statusTextView.setText(R.string.updating_text)
+        }
+        Status.ERROR -> {
+            statusTextView.visibility = View.VISIBLE
+            statusTextView.setText(R.string.no_connection_text)
+        }
+        Status.OK -> {
+            statusTextView.visibility = View.GONE
+        }
+    }
+}
+
+@BindingAdapter("apiStatus")
+fun bindApiStatus(statusButton: Button,
+                  status: Status?) {
+    when (status) {
+        Status.LOADING -> {
+            statusButton.visibility = View.GONE
+        }
+        Status.ERROR -> {
+            statusButton.visibility = View.VISIBLE
+        }
+        Status.OK -> {
+            statusButton.visibility = View.GONE
+        }
+    }
+}
+
+
+@BindingAdapter("localeStatus")
+fun bindLocaleStatus(statusImageView: ImageView,
+                  status: Status?) {
+    when (status) {
+        Status.NO_COUNTRY -> {
+            statusImageView.visibility = View.VISIBLE
+            statusImageView.setImageResource(R.drawable.ic_wrong_location)
+        }
+        else -> {
+            statusImageView.visibility = View.GONE
+        }
+    }
+}
+
+
+@BindingAdapter("localeStatus")
+fun bindLocaleStatus(statusTextView: TextView,
+                     status: Status?) {
+    when (status) {
+        Status.NO_COUNTRY -> {
+            statusTextView.visibility = View.VISIBLE
+            statusTextView.setText(R.string.no_country_text)
+        }
+        else -> {
+            statusTextView.visibility = View.GONE
         }
     }
 }

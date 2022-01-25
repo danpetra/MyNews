@@ -26,10 +26,10 @@ class NewsDataSourceImpl(
 
             _downloadedNews.postValue(fetchedNews)
             _apiServiceStatus.postValue(Status.OK)
-            Log.i("fetch","Fetch no error, q $q")
+            Log.i("NewsApi","Fetch no error, q $q")
         } catch (error: IOException)
         {
-            Log.e("fetch","Fetch error ${ error.message}")
+            Log.e("NewsApi","Fetch error ${ error.message}")
             _apiServiceStatus.postValue(Status.ERROR)
         }
     }

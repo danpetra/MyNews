@@ -8,6 +8,7 @@ import androidx.lifecycle.*
 import com.example.mynews.R
 import com.example.mynews.data.repository.NewsRepository
 import com.example.mynews.data.entities.ArticleData
+import com.example.mynews.data.entities.Status
 import com.example.mynews.data.provider.LocaleProvider
 import com.example.mynews.data.provider.ShareProvider
 import com.example.mynews.data.repository.BookmarksDataSource
@@ -34,6 +35,20 @@ class TopViewModel(
     val status: LiveData<String>
         get() = _status
 
+    private val _userStatus = MutableLiveData<String>()
+    val userStatus: LiveData<String>
+        get() = _userStatus
+
+    private val _wholeStatus = MutableLiveData<String>()
+    val wholeStatus: LiveData<String>
+        get() = _wholeStatus
+
+
+    val countries = listOf("ae","ar","at","au","be","bg","br","ca","ch","cn","co","cu","cz","de",
+        "eg","fr","gb","gr","hk","hu","id","ie","il","in","it","jp","kr","lt","lv","ma","mx","my",
+        "ng","nl","no","nz","ph","pl","pt","ro","rs","ru","sa",
+        "se","sg","si","sk","th","tr","tw","ua","us","ve","za")
+
     val categories = listOf(
         ALL_CATEGORIES, "business", "entertainment", "general", "health", "science", "sports", "technology"
     )
@@ -43,22 +58,28 @@ class TopViewModel(
     var query: String? = null
     val apiStatus = newsRepository.getStatus()
 
+
+    val localeStatus = Transformations.map(apiStatus) {
+        if (it == Status.OK && countries.indexOf(currentLocale) == -1) return@map Status.NO_COUNTRY
+        else return@map Status.OK
+    }
+
     init{
-        _status.value = "permanent"
+        _status.value = "init"
         getNews()
     }
 
     fun getNews(){
-        viewModelScope.launch{
+        viewModelScope.launch(Dispatchers.IO){
             try{
-                 _articles.value = newsRepository.getNews(locale, currentCategory, q = query).value
-                if (_articles.value == null){_status.value = "ok, null"}
-                else if(_articles.value!!.isEmpty()){_status.value = "ok, empty"}
+                 _articles.postValue(newsRepository.getNews(locale, currentCategory, q = query).value)
+                if (_articles.value == null){_status.postValue("ok, null")}
+                else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}
 
-                else{_status.value = "ok, ${currentLocale}"}
+                _status.postValue("ok, ${currentLocale}")
             } catch(e: Exception){
-                _articles.value = ArrayList()
-                _status.value = "error $e"
+                _articles.postValue(ArrayList())
+                _status.postValue("error $e")
                 Log.e("NewsApi","Get news in fragment, error $e")
             }
         }

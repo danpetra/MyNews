@@ -3,6 +3,7 @@ package com.example.mynews.data.provider
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
+import java.util.*
 
 class LocaleProviderImpl(context: Context) : LocaleProvider {
     private val appContext = context.applicationContext
@@ -11,7 +12,9 @@ class LocaleProviderImpl(context: Context) : LocaleProvider {
     get() = PreferenceManager.getDefaultSharedPreferences(appContext)
 
     override fun getLocale(): String {
-        val selectedLocale = preferences.getString("locale", "us")
+        val useDeviceLocation = preferences.getBoolean("current_locale", true)
+        var selectedLocale = preferences.getString("locale", "us")
+        if (useDeviceLocation) selectedLocale = Locale.getDefault().country.lowercase(Locale.getDefault())
         return selectedLocale.toString()
     }
 }

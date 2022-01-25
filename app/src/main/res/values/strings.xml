@@ -26,4 +26,7 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="current_location_switch">Use current location</string>
     <string name="menu_settings">Settings</string>
+    <string name="no_country_text"><![CDATA[Sorry, but NewsApi can\'t provide you with latest news for your current region. You can change country manually from available in Settings -> Location]]></string>
+    <string name="no_connection_text">Error fetching from a server. Try to check your Internet connection</string>
+    <string name="updating_text">Updating...</string>
 </resources>

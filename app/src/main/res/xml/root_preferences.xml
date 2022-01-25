@@ -23,21 +23,6 @@
     <PreferenceCategory app:title="@string/sync_header">
 
 
-
-        <SwitchPreferenceCompat
-
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
-
-
-
-         <com.google.android.gms.common.SignInButton
-             app:layout_constraintBottom_toBottomOf="parent"
-             app:layout_constraintStart_toStartOf="parent" />
-
     </PreferenceCategory>
 
 </PreferenceScreen>

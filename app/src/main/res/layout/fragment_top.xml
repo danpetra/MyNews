@@ -27,6 +27,51 @@ xmlns:tools="http://schemas.android.com/tools">
                 app:layout_constraintTop_toTopOf="parent"
                 app:apiStatus="@{viewModel.apiStatus}" />
 
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status_image"
+                android:padding="5dp"
+                tools:text="status text"
+                app:apiStatus="@{viewModel.apiStatus}"
+                />
+
+            <Button
+                android:id="@+id/status_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/status_text"
+                android:padding="5dp"
+                android:text="retry"
+                app:apiStatus="@{viewModel.apiStatus}"
+                android:onClick="@{()->viewModel.getNews()}"/>
+
+            <ImageView
+                android:id="@+id/locale_status_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:localeStatus="@{viewModel.localeStatus}" />
+
+            <TextView
+                android:id="@+id/locale_status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locale_status_image"
+                android:padding="5dp"
+                tools:text="status text"
+                app:localeStatus="@{viewModel.localeStatus}"/>
+
 
             <!-- <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                  android:id="@+id/refresh"
@@ -52,7 +97,10 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">-->
-
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:orientation="vertical">
 
             <TextView
                 android:id="@+id/status"
@@ -100,23 +148,25 @@ xmlns:tools="http://schemas.android.com/tools">
             android:padding="6dp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/button_list"
-            app:layout_constraintBottom_toTopOf="@id/sign_in_button"
+
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:listData="@{viewModel.articles}"
             app:spanCount="1"
             tools:listitem="@layout/cardview_item" />
 
-        <com.google.android.gms.common.SignInButton
+
+       <!-- <com.google.android.gms.common.SignInButton
             android:id="@+id/sign_in_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />-->
 
             <!--</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
 
 
+    </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

@@ -19,6 +19,7 @@ import com.example.news.article.ArticleViewModel
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance
+import kotlin.properties.Delegates
 
 class ArticleFragment : Fragment(), DIAware {
 
@@ -28,6 +29,7 @@ class ArticleFragment : Fragment(), DIAware {
 
     private lateinit var viewModel: ArticleViewModel
     lateinit var args: ArticleFragmentArgs
+    var isBookmarked by Delegates.notNull<Boolean>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +41,7 @@ class ArticleFragment : Fragment(), DIAware {
         setHasOptionsMenu(true)
 
         args = ArticleFragmentArgs.fromBundle(requireArguments())
+        isBookmarked = args.isBookmarked
 
         val myWebViewClient = MyWebViewClient()
         binding.root.let{
@@ -67,7 +70,10 @@ class ArticleFragment : Fragment(), DIAware {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.action_share -> shareArticle(args.url)
-            R.id.action_bookmark -> {bookmarkArticle(
+            R.id.action_bookmark -> {
+                if (isBookmarked) {item.setIcon(R.drawable.ic_bookmark_border_black); isBookmarked = false}
+                else {item.setIcon(R.drawable.ic_bookmark_fill_black); isBookmarked = true}
+                bookmarkArticle(
                 ArticleData(
                     Source(args.sourceId,args.sourceId),
                     args.author,
@@ -78,9 +84,7 @@ class ArticleFragment : Fragment(), DIAware {
                     args.publishedAt,
                     args.content,
                     args.userId,
-                    args.isBookmarked))
-                if (args.isBookmarked) item.setIcon(R.drawable.ic_bookmark_border_black)
-                else item.setIcon(R.drawable.ic_bookmark_fill_black)
+                    isBookmarked))
             }
         }
         return super.onOptionsItemSelected(item)

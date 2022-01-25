@@ -12,14 +12,14 @@ import com.example.mynews.databinding.CategoryButtonItemBinding
 import com.example.news.overview.adapters.CardviewItemAdapter
 
 
-class CategoryButtonAdapter(val buttonListener: OnCategoryButtonListener): ListAdapter<String, CategoryButtonAdapter.ButtonCategoryViewHolder>(DiffCallback){
+class CategoryButtonAdapter(val buttonListener: OnCategoryButtonListener, val clickListener:ButtonListener): ListAdapter<String, CategoryButtonAdapter.ButtonCategoryViewHolder>(DiffCallback){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ButtonCategoryViewHolder {
         return ButtonCategoryViewHolder(CategoryButtonItemBinding.inflate(LayoutInflater.from(parent.context)), buttonListener)
     }
 
     override fun onBindViewHolder(holder: ButtonCategoryViewHolder, position: Int) {
         val category = getItem(position)
-        holder.bind(category)
+        holder.bind(category, clickListener)
     }
 
     companion object DiffCallback: DiffUtil.ItemCallback<String>(){
@@ -33,9 +33,9 @@ class CategoryButtonAdapter(val buttonListener: OnCategoryButtonListener): ListA
 
     class ButtonCategoryViewHolder(val binding: CategoryButtonItemBinding, val onButtonListener: OnCategoryButtonListener):
         RecyclerView.ViewHolder(binding.root), View.OnClickListener{
-        fun bind(category: String, /*clickListener: ButtonListener*/){
+        fun bind(category: String, clickListener: ButtonListener){
             binding.category = category
-          /*  binding.clickListener = clickListener*/
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
@@ -49,8 +49,8 @@ class CategoryButtonAdapter(val buttonListener: OnCategoryButtonListener): ListA
     }
 
 }
-/*
+
 
 class ButtonListener(val clickListener: (category: String)->Unit){
     fun onClick(category: String) = clickListener(category)
-}*/
+}
