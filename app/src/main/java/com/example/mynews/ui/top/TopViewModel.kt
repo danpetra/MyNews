@@ -8,18 +8,22 @@ import androidx.lifecycle.*
 import com.example.mynews.R
 import com.example.mynews.data.repository.NewsRepository
 import com.example.mynews.data.entities.ArticleData
+import com.example.mynews.data.entities.SourceData
 import com.example.mynews.data.entities.Status
 import com.example.mynews.data.provider.LocaleProvider
 import com.example.mynews.data.provider.ShareProvider
 import com.example.mynews.data.repository.BookmarksDataSource
 import com.example.mynews.data.repository.BookmarksRepository
+import com.example.mynews.data.repository.sources.SourcesRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class TopViewModel(
     private val newsRepository: NewsRepository,
     private val bookmarksRepository: BookmarksRepository,
+    private val sourcesRepository: SourcesRepository,
     localeProvider: LocaleProvider,
     private val shareProvider: ShareProvider
 ) : ViewModel() {
@@ -39,10 +43,8 @@ class TopViewModel(
     val userStatus: LiveData<String>
         get() = _userStatus
 
-    private val _wholeStatus = MutableLiveData<String>()
-    val wholeStatus: LiveData<String>
-        get() = _wholeStatus
 
+    var sources: List<SourceData>? = null
 
     val countries = listOf("ae","ar","at","au","be","bg","br","ca","ch","cn","co","cu","cz","de",
         "eg","fr","gb","gr","hk","hu","id","ie","il","in","it","jp","kr","lt","lv","ma","mx","my",
@@ -58,6 +60,8 @@ class TopViewModel(
     var query: String? = null
     val apiStatus = newsRepository.getStatus()
 
+    var currentSource:String? = null
+
 
     val localeStatus = Transformations.map(apiStatus) {
         if (it == Status.OK && countries.indexOf(currentLocale) == -1) return@map Status.NO_COUNTRY
@@ -67,6 +71,12 @@ class TopViewModel(
     init{
         _status.value = "init"
         getNews()
+        getSources()
+    }
+
+    fun update(){
+        currentSource?.run { getNewsForSource() }
+            ?: run { getNews() }
     }
 
     fun getNews(){
@@ -85,6 +95,34 @@ class TopViewModel(
         }
     }
 
+    fun getNewsForSource(){
+        viewModelScope.launch(Dispatchers.IO){
+            try{
+                _articles.postValue(newsRepository.getNews(null, source = currentSource, q = query).value)
+                if (_articles.value == null){_status.postValue("ok, null")}
+                else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}
+
+                _status.postValue("ok, ${currentLocale}")
+            } catch(e: Exception){
+                _articles.postValue(ArrayList())
+                _status.postValue("error $e")
+                Log.e("NewsApi","Get news in fragment, error $e")
+            }
+        }
+    }
+
+    fun getSources(): Job {
+        return viewModelScope.launch(Dispatchers.IO){
+            try{
+                sources = sourcesRepository.getSources(locale, currentCategory).value
+                Log.i("source", "getSources in viewModel, size ${sources?.size}")
+                Log.i("source", "getSources in viewModel, size db  ${sourcesRepository.getSources(locale, currentCategory).value?.size}")
+            } catch(e: Exception){
+                Log.e("source","Get sources in fragment, error $e")
+            }
+        }
+
+    }
 
     fun getShareIntent(message: String): Intent {
         return shareProvider.getShareIntent(message)

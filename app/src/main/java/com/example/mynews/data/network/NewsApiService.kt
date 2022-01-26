@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.mynews.data.entities.ArticleData
 import com.example.mynews.data.entities.ArticleResponce
+import com.example.mynews.data.entities.SourceResponce
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -28,7 +29,7 @@ interface NewsApiService {
     @GET("top-headlines")
     suspend fun getTopHeadlines(
         @Query("apiKey") apiKey: String  = API_KEY,
-        @Query("country") country: String,
+        @Query("country") country: String?,
         @Query("category") category: String? = null,
         @Query("sources") sources: String? = null,
         @Query("q") q: String? = null
@@ -71,9 +72,9 @@ interface NewsApiService {
 
     @GET("sources")
     suspend fun getSources(
-        @Query("apiKey") apiKey: String,
-        @Query("country") country: String = java.util.Locale.getDefault().country
-    ): Deferred<ArticleResponce>
+        @Query("apiKey") apiKey: String = API_KEY,
+        @Query("country") country: String? = null,
+    ): SourceResponce
 
     companion object{
         operator fun invoke(): NewsApiService{

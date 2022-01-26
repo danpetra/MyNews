@@ -1,15 +1,16 @@
-package com.example.news.overview.adapters
+package com.example.mynews.ui.adapters
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.inflate
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mynews.R
+import com.example.mynews.data.entities.Article
 import com.example.mynews.data.entities.ArticleData
 import com.example.mynews.databinding.CardviewItemBinding
 
@@ -69,7 +70,8 @@ class CardviewItemAdapter(val articleListener: OnArticleListener): ListAdapter<A
     }
 
 }
-/*class ArticleListener(val clickListener: (article: Article) -> Unit) {
+class ArticleListener(val clickListener: (article: Article) -> Unit) {
     fun onClick(article: Article) = clickListener(article)
-}*/
+}
+
 

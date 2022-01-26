@@ -17,7 +17,7 @@ class NewsRepositoryImpl(
 ): NewsRepository {
 
 
-    override suspend fun getNews(country: String, category: String?, source: String?, q: String?): LiveData<List<ArticleData>> {
+    override suspend fun getNews(country: String?, category: String?, source: String?, q: String?): LiveData<List<ArticleData>> {
         return withContext(Dispatchers.IO) {
             initNewsData(country, category, source, q)
             val newsList = mutableListOf<ArticleData>()
@@ -37,11 +37,11 @@ class NewsRepositoryImpl(
         return newsDataSource.apiServiceStatus
     }
 
-    private suspend fun initNewsData(country: String, category: String?, sources: String?, q: String?){
+    private suspend fun initNewsData(country: String?, category: String?, sources: String?, q: String?){
         fetchNews(country, category = category, sources = sources, q = q)
     }
 
-    private suspend fun fetchNews(country: String, category: String?, sources: String?, q: String?){
+    private suspend fun fetchNews(country: String?, category: String?, sources: String?, q: String?){
         newsDataSource.fetchNews(country, category = category, sources = sources, q = q)
     }
 

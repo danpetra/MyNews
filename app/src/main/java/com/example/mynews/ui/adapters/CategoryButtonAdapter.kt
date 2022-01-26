@@ -1,4 +1,4 @@
-package com.example.news.overview
+package com.example.mynews.ui.adapters
 
 
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
 import android.view.ViewGroup
 import com.example.mynews.databinding.CategoryButtonItemBinding
-import com.example.news.overview.adapters.CardviewItemAdapter
 
 
 class CategoryButtonAdapter(val buttonListener: OnCategoryButtonListener, val clickListener:ButtonListener): ListAdapter<String, CategoryButtonAdapter.ButtonCategoryViewHolder>(DiffCallback){

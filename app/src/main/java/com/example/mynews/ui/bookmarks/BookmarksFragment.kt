@@ -10,9 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.mynews.R
 import com.example.mynews.databinding.FragmentBookmarksBinding
+import com.example.mynews.ui.adapters.CardviewItemAdapter
 import com.example.mynews.ui.top.TopFragmentDirections
 import com.example.mynews.ui.top.TopViewModelFactory
-import com.example.news.overview.adapters.CardviewItemAdapter
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance

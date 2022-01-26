@@ -20,7 +20,7 @@ class NewsDataSourceImpl(
         get() = _apiServiceStatus
 
 
-    override suspend fun fetchNews(country: String, category: String?, sources: String?, q:String?) {
+    override suspend fun fetchNews(country: String?, category: String?, sources: String?, q:String?) {
         try{
             val fetchedNews = apiService.getTopHeadlines(country = country, category = category, sources = sources, q = q)
 

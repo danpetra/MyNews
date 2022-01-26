@@ -2,31 +2,32 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
+<!--
     <data>
         <variable
-            name="category"
+            name="source"
             type="String" />
-
         <variable
             name="clickListener"
-            type="com.example.mynews.ui.adapters.ButtonListener"/>
-    </data>
+            type="com.example.mynews.ui.adapters.SourceListener" />
+
+    </data>-->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{category}"
+        <TextView
+            android:id="@+id/source_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="button"
-            android:layout_margin="10dp"
-          android:onClick="@{() -> clickListener.onClick(category)}"/>
-
+            tools:text="source"
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+            <!--android:text="@{source}"
+            android:onClick="@{()->clickListener.onClick(source)}"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
-

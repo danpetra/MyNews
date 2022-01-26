@@ -4,12 +4,15 @@ import com.example.mynews.data.repository.NewsDataSourceImpl
 import android.app.Application
 //import com.example.mynews.data.db.CurrentNewsDatabase
 import com.example.mynews.data.db.bookmarks.BookmarkedNewsDatabase
+import com.example.mynews.data.db.sources.SourcesDatabase
 import com.example.mynews.data.repository.NewsRepositoryImpl
 import com.example.mynews.data.network.NewsApiService
 import com.example.mynews.data.provider.LocaleProviderImpl
 import com.example.mynews.data.provider.ShareProviderImpl
 import com.example.mynews.data.repository.BookmarksDataSourceImpl
 import com.example.mynews.data.repository.BookmarksRepositoryImpl
+import com.example.mynews.data.repository.sources.SourcesDataSourceImpl
+import com.example.mynews.data.repository.sources.SourcesRepositoryImpl
 import com.example.mynews.ui.article.ArticleViewModelFactory
 import com.example.mynews.ui.bookmarks.BookmarksViewModelFactory
 import com.example.mynews.ui.top.TopViewModelFactory
@@ -23,13 +26,17 @@ class MyApplication() : Application(), DIAware {
         //bindSingleton { instance<CurrentNewsDatabase>().currentNewsDatabaseDao() }
         bindSingleton { BookmarkedNewsDatabase.getInstance(instance())}
         bindSingleton { instance<BookmarkedNewsDatabase>().bookmarkedNewsDatabaseDao() }
+        bindSingleton { SourcesDatabase.getInstance(instance())}
+        bindSingleton { instance<SourcesDatabase>().sourcesDatabaseDao() }
         bindSingleton { NewsApiService() }
         bindSingleton { NewsDataSourceImpl(instance()) }
         bindSingleton { BookmarksDataSourceImpl(instance()) }
+        bindSingleton { SourcesDataSourceImpl(instance()) }
         bindSingleton { NewsRepositoryImpl(instance(), instance(), instance()) }
         bindSingleton { BookmarksRepositoryImpl(instance())}
+        bindSingleton { SourcesRepositoryImpl(instance(), instance()) }
         bindProvider { BookmarksViewModelFactory(instance(), instance()) }
-        bindProvider { TopViewModelFactory(instance(), instance(), instance(), instance()) }
+        bindProvider { TopViewModelFactory(instance(), instance(), instance(), instance(), instance()) }
         bindProvider { ArticleViewModelFactory(instance(), instance()) }
         bindSingleton { LocaleProviderImpl(instance()) }
         bindProvider { ShareProviderImpl() }

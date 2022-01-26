@@ -5,16 +5,20 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ListView
+import android.widget.RadioGroup
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.mynews.R
 import com.example.mynews.databinding.FragmentTopBinding
-import com.example.news.overview.ButtonListener
-import com.example.news.overview.CategoryButtonAdapter
-import com.example.news.overview.adapters.CardviewItemAdapter
+import com.example.mynews.databinding.SourceMenuBinding
+import com.example.mynews.ui.adapters.*
+import com.google.android.material.snackbar.Snackbar
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance
@@ -33,7 +37,7 @@ class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(TopViewModel::class.java)
         _binding = FragmentTopBinding.inflate(inflater)
@@ -95,6 +99,7 @@ class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener
 
     override fun onButtonClick(position: Int) {
         val category = viewModel.categories.get(position)
+        viewModel.currentSource = null
         viewModel.currentCategory = when (category)
         {
             viewModel.ALL_CATEGORIES -> null
@@ -139,8 +144,51 @@ class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener
     }
 
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId==R.id.sources_menu_item) showSourceMenu()
+        return super.onOptionsItemSelected(item)
+    }
+
+
     private fun shareArticle(message: String) {
         startActivity(viewModel.getShareIntent(message))
+    }
+
+    fun showSourceMenu() {
+        val dialog = AlertDialog.Builder(this.requireContext())
+        dialog.setTitle("Choose source")
+        val inflater = LayoutInflater.from(this.requireContext())
+        val binding = SourceMenuBinding.inflate(inflater)
+        val sourceList = binding.root.findViewById<ListView>(R.id.source_list)
+        val sourcesList = viewModel.sources
+        val sourcesNameList = sourcesList?.map { it.name }
+        var sourceId:String? = null
+        var sourceName:String? = null
+        val adapter = context?.let {context->
+            sourcesNameList?.let{list->
+                SourcesListAdapter(context, list){
+                        p0->Toast.makeText(context,"Chosed ${sourcesList.get(p0).id}",Toast.LENGTH_LONG).show()
+                    sourceId = sourcesList.get(p0).id
+                    sourceName = sourcesList.get(p0).name
+                }
+            }?: run { SourcesListAdapter(context, listOf("No items")){} }
+        }
+        sourceList.adapter = adapter
+
+        dialog.setView(binding.root)
+
+        dialog.setNegativeButton("Cancel"){dialogInterface,_ -> dialogInterface.dismiss()}
+        dialog.setPositiveButton("Set"){dialogInterface,_ ->
+            viewModel.currentSource = sourceId
+            viewModel.update()
+            dialogInterface.dismiss()
+            view?.let {
+                Snackbar.make(it, "You are watching the news from $sourceName", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+            }
+
+        }
+        dialog.show()
     }
 
 }

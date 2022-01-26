@@ -15,8 +15,8 @@ import com.example.mynews.R
 import com.example.mynews.data.entities.Article
 import com.example.mynews.data.entities.ArticleData
 import com.example.mynews.data.entities.Status
-import com.example.news.overview.CategoryButtonAdapter
-import com.example.news.overview.adapters.CardviewItemAdapter
+import com.example.mynews.ui.adapters.CategoryButtonAdapter
+import com.example.mynews.ui.adapters.CardviewItemAdapter
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?){
