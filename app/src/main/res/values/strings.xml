@@ -29,4 +29,8 @@
     <string name="no_country_text"><![CDATA[Sorry, but NewsApi can\'t provide you with latest news for your current region. You can change country manually from available in Settings -> Location]]></string>
     <string name="no_connection_text">Error fetching from a server. Try to check your Internet connection</string>
     <string name="updating_text">Updating...</string>
+
+    <string name="channel_name"> Notification Channel </string>
+    <string name="channel_description"> Notification Channel </string>
+
 </resources>
