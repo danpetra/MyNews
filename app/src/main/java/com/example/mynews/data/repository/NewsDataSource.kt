@@ -9,5 +9,6 @@ interface NewsDataSource {
     val downloadedNews: LiveData<ArticleResponce>
     val apiServiceStatus: LiveData<Status>
     suspend fun fetchNews(country: String?, category: String? = null, sources: String? = null, q: String? = null)
+    suspend fun fetchCache(country: String?, category: String? = null, sources: String? = null, q: String? = null)
     suspend fun fetchEverything(language: String?, sources: String?  = null, q:String? = null)
 }

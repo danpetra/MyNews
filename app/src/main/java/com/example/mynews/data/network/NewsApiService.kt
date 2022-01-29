@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.Response
 
-val API_KEY = "824bee49e440427989656cf5a21d9ded"
+val API_KEY = "7da15afd85a443ab8a7e06ce2778bcc5"//"824bee49e440427989656cf5a21d9ded"
 private val BASE_URL = "https://newsapi.org/v2/"
 
 private val moshi = Moshi.Builder()

@@ -9,6 +9,7 @@ import com.example.mynews.data.repository.NewsRepositoryImpl
 import com.example.mynews.data.network.NewsApiService
 import com.example.mynews.data.provider.LocaleProviderImpl
 import com.example.mynews.data.provider.ShareProviderImpl
+import com.example.mynews.data.provider.SharedPreferencesProviderImpl
 import com.example.mynews.data.repository.BookmarksDataSourceImpl
 import com.example.mynews.data.repository.BookmarksRepositoryImpl
 import com.example.mynews.data.repository.sources.SourcesDataSourceImpl
@@ -36,7 +37,7 @@ class MyApplication() : Application(), DIAware {
         bindSingleton { BookmarksDataSourceImpl(instance()) }
         bindSingleton { SourcesDataSourceImpl(instance()) }
 
-        bindSingleton { NewsRepositoryImpl(instance(), instance(), instance()) }
+        bindSingleton { NewsRepositoryImpl(instance(), instance(), instance(), instance()) }
         bindSingleton { BookmarksRepositoryImpl(instance())}
         bindSingleton { SourcesRepositoryImpl(instance(), instance()) }
 
@@ -46,6 +47,7 @@ class MyApplication() : Application(), DIAware {
         bindProvider { ArticleViewModelFactory(instance(), instance()) }
 
         bindSingleton { LocaleProviderImpl(instance()) }
+        bindSingleton { SharedPreferencesProviderImpl(instance()) }
         bindProvider { ShareProviderImpl() }
 
     }

@@ -6,6 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.mynews.data.entities.ArticleResponce
 import com.example.mynews.data.entities.Status
 import com.example.mynews.data.network.NewsApiService
+import com.example.mynews.data.network.STATIC_JSON_RESPONSE
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import java.io.File
 import java.io.IOException
 
 class NewsDataSourceImpl(
@@ -34,6 +39,30 @@ class NewsDataSourceImpl(
         }
     }
 
+    override suspend fun fetchCache(country: String?, category: String?, sources: String?, q:String?) {
+
+        Log.i("statApi", "start")
+        //val jsonText = this.javaClass.classLoader?.getResource("raw/static_json_responce.json")?.readText()
+        //val jsonText: String = File("static_json_responce.json").readText()
+
+        val jsonText = STATIC_JSON_RESPONSE
+
+        Log.i("statApi", "${jsonText.isNullOrEmpty()}")
+        val moshi = Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
+        val jsonAdapter: JsonAdapter<ArticleResponce> = moshi.adapter(ArticleResponce::class.java)
+        jsonText?.let {
+            Log.i("statApi", "json text not null")
+            val fetchedNews = jsonAdapter.fromJson(jsonText)
+            fetchedNews?.let { news ->
+                _downloadedNews.postValue(news)
+                _apiServiceStatus.postValue(Status.OK)
+            }
+        }
+
+    }
+
     override suspend fun fetchEverything(language: String?, sources: String?, q:String?) {
         try{
             val fetchedNews = apiService.getEverything(language = language, sources = sources, q = q)
@@ -47,4 +76,5 @@ class NewsDataSourceImpl(
             _apiServiceStatus.postValue(Status.ERROR)
         }
     }
+
 }

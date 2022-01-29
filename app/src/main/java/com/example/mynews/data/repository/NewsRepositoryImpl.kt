@@ -7,20 +7,24 @@ import androidx.lifecycle.MutableLiveData
 import com.example.mynews.data.db.bookmarks.BookmarkedNewsDatabaseDao
 import com.example.mynews.data.entities.Article
 import com.example.mynews.data.entities.ArticleData
+import com.example.mynews.data.entities.ArticleDataCache
 import com.example.mynews.data.entities.Status
 import com.example.mynews.data.provider.LocaleProvider
+import com.example.mynews.data.provider.SharedPreferencesProvider
 import kotlinx.coroutines.*
 
 class NewsRepositoryImpl(
     val newsDataSource: NewsDataSource,
     val bookmarkedNewsDatabaseDao: BookmarkedNewsDatabaseDao,
-    val localeProvider: LocaleProvider
+    val localeProvider: LocaleProvider,
+    val sharedPreferencesProvider: SharedPreferencesProvider
 ): NewsRepository {
 
 
     override suspend fun getNews(type:Int?, country: String?, language: String?, category: String?, source: String?, q: String?): LiveData<List<ArticleData>> {
         return withContext(Dispatchers.IO) {
             initNewsData(type, country, language, category, source, q)
+            delay(500)
             val newsList = mutableListOf<ArticleData>()
             if(getStatus().value !=Status.ERROR){
                 newsDataSource.downloadedNews.value?.let {
@@ -43,11 +47,15 @@ class NewsRepositoryImpl(
 
     private suspend fun initNewsData(type:Int?,country: String?, language: String?, category: String?, sources: String?, q: String?){
         fetchNews(type, country, language, category = category, sources = sources, q = q)
+
     }
 
     private suspend fun fetchNews(type:Int?, country: String?, language: String?, category: String?, sources: String?, q: String?){
-        if (type == 1) newsDataSource.fetchNews(country, category = category, sources = sources, q = q)
-        else newsDataSource.fetchEverything(language, sources = sources, q = q)
+        if(sharedPreferencesProvider.isUsingStaticApi()) newsDataSource.fetchCache(country, category = category, sources = sources, q = q)
+        else{
+            if (type == 1) newsDataSource.fetchNews(country, category = category, sources = sources, q = q)
+            else newsDataSource.fetchEverything(language, sources = sources, q = q)
+        }
     }
 
     fun Article.toData(): ArticleData{

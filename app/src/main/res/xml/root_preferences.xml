@@ -1,35 +1,41 @@
+
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/location_header">
 
         <SwitchPreferenceCompat
-            app:key="current_locale"
+            app:key="USE_CURRENT_LOCALE_PREFERENCE_KEY"
             app:title="@string/current_location_switch"
             app:summary="Allow the app to get your location"
             app:defaultValue="true"
             app:disableDependentsState="true"/>
 
         <ListPreference
-            app:defaultValue="locale"
             app:entries="@array/country_entries"
             app:entryValues="@array/country_values"
-            app:key="locale"
+            app:key="LOCALE_PREFERENCE_KEY"
             app:title="Choose location (for top)"
             app:summary="Choose your location from the list"
-            app:dependency="current_locale" />
+            app:dependency="USE_CURRENT_LOCALE_PREFERENCE_KEY" />
 
         <ListPreference
-            app:defaultValue="language"
             app:entries="@array/languages_entries"
             app:entryValues="@array/languages_values"
-            app:key="language"
+            app:key="LANGUAGE_PREFERENCE_KEY"
             app:title="Choose language (for everything)"
             app:summary="Choose your language from the list"
-            app:dependency="current_locale" />
+            app:dependency="USE_CURRENT_LOCALE_PREFERENCE_KEY" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Notifications">
+    <PreferenceCategory
+        app:title="Other">
+
+        <SwitchPreferenceCompat
+            app:key="USE_STATIC_API_PREFERENCE_KEY"
+            app:title="Use static api"
+            app:summary="Get static news without connection with server"
+            app:defaultValue="false" />
 
        <!-- <SwitchPreferenceCompat
             app:key="show_notification"
