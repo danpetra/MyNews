@@ -14,10 +14,12 @@ import com.example.mynews.data.provider.LocaleProvider
 import com.example.mynews.data.provider.ShareProvider
 import com.example.mynews.data.repository.BookmarksDataSource
 import com.example.mynews.data.repository.BookmarksRepository
+import com.example.mynews.data.repository.NewsRepositoryImpl.Companion.TOP
 import com.example.mynews.data.repository.sources.SourcesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import retrofit2.http.HTTP
 import java.lang.Exception
 
 class TopViewModel(
@@ -31,8 +33,8 @@ class TopViewModel(
 
     val ALL_CATEGORIES = "all categories"
 
-    private var _articles = MutableLiveData<List<ArticleData>>()
-    val articles: LiveData<List<ArticleData>>
+    private var _articles = MutableLiveData<List<ArticleData>?>()
+    val articles: LiveData<List<ArticleData>?>
         get() = _articles
 
     private val _status = MutableLiveData<String>()
@@ -82,7 +84,7 @@ class TopViewModel(
     fun getNews(){
         viewModelScope.launch(Dispatchers.IO){
             try{
-                 _articles.postValue(newsRepository.getNews(locale, currentCategory, q = query).value)
+                _articles.postValue(newsRepository.getNews(TOP, country = locale, category = currentCategory, q = query).value)
                 if (_articles.value == null){_status.postValue("ok, null")}
                 else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}
 
@@ -98,13 +100,14 @@ class TopViewModel(
     fun getNewsForSource(){
         viewModelScope.launch(Dispatchers.IO){
             try{
-                _articles.postValue(newsRepository.getNews(null, source = currentSource, q = query).value)
+                _articles.postValue(newsRepository.getNews(TOP, country = null, source = currentSource, q = query).value)
+                //_articles = newsRepository.getNews(TOP, country = null, source = currentSource, q = query)
                 if (_articles.value == null){_status.postValue("ok, null")}
                 else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}
 
                 _status.postValue("ok, ${currentLocale}")
             } catch(e: Exception){
-                _articles.postValue(ArrayList())
+                //_articles.postValue(ArrayList())
                 _status.postValue("error $e")
                 Log.e("NewsApi","Get news in fragment, error $e")
             }

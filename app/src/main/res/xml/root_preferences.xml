@@ -14,14 +14,37 @@
             app:entries="@array/country_entries"
             app:entryValues="@array/country_values"
             app:key="locale"
-            app:title="Choose location"
+            app:title="Choose location (for top)"
             app:summary="Choose your location from the list"
+            app:dependency="current_locale" />
+
+        <ListPreference
+            app:defaultValue="language"
+            app:entries="@array/languages_entries"
+            app:entryValues="@array/languages_values"
+            app:key="language"
+            app:title="Choose language (for everything)"
+            app:summary="Choose your language from the list"
             app:dependency="current_locale" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory app:title="Notifications">
 
+       <!-- <SwitchPreferenceCompat
+            app:key="show_notification"
+            app:title="Show Notification"
+            app:summary="Allow the app to show notification"
+            app:defaultValue="false" />
+
+        <ListPreference
+            app:defaultValue="locale"
+            app:entries="@array/time_entries"
+            app:entryValues="@array/time_values"
+            app:key="locale"
+            app:title="Choose location"
+            app:summary="Choose your location from the list"
+            app:dependency="current_locale" />-->
 
     </PreferenceCategory>
 

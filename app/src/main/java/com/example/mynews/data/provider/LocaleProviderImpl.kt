@@ -17,4 +17,11 @@ class LocaleProviderImpl(context: Context) : LocaleProvider {
         if (useDeviceLocation) selectedLocale = Locale.getDefault().country.lowercase(Locale.getDefault())
         return selectedLocale.toString()
     }
+
+    override fun getLang(): String {
+        val useDeviceLocation = preferences.getBoolean("current_locale", true)
+        var selectedLang = preferences.getString("language", "en")
+        if (useDeviceLocation) selectedLang = Locale.getDefault().language.lowercase(Locale.getDefault())
+        return selectedLang.toString()
+    }
 }

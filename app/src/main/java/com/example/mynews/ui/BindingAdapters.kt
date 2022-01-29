@@ -80,6 +80,9 @@ fun bindApiStatus(statusTextView: TextView,
         Status.OK -> {
             statusTextView.visibility = View.GONE
         }
+        else -> {
+            statusTextView.visibility = View.GONE
+        }
     }
 }
 
@@ -94,6 +97,9 @@ fun bindApiStatus(statusButton: Button,
             statusButton.visibility = View.VISIBLE
         }
         Status.OK -> {
+            statusButton.visibility = View.GONE
+        }
+        else -> {
             statusButton.visibility = View.GONE
         }
     }

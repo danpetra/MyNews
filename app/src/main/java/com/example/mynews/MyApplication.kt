@@ -13,8 +13,10 @@ import com.example.mynews.data.repository.BookmarksDataSourceImpl
 import com.example.mynews.data.repository.BookmarksRepositoryImpl
 import com.example.mynews.data.repository.sources.SourcesDataSourceImpl
 import com.example.mynews.data.repository.sources.SourcesRepositoryImpl
+import com.example.mynews.data.work.NotificationWorker
 import com.example.mynews.ui.article.ArticleViewModelFactory
 import com.example.mynews.ui.bookmarks.BookmarksViewModelFactory
+import com.example.mynews.ui.everything.EverythingViewModelFactory
 import com.example.mynews.ui.top.TopViewModelFactory
 import org.kodein.di.*
 import org.kodein.di.android.x.androidXModule
@@ -29,17 +31,23 @@ class MyApplication() : Application(), DIAware {
         bindSingleton { SourcesDatabase.getInstance(instance())}
         bindSingleton { instance<SourcesDatabase>().sourcesDatabaseDao() }
         bindSingleton { NewsApiService() }
+
         bindSingleton { NewsDataSourceImpl(instance()) }
         bindSingleton { BookmarksDataSourceImpl(instance()) }
         bindSingleton { SourcesDataSourceImpl(instance()) }
+
         bindSingleton { NewsRepositoryImpl(instance(), instance(), instance()) }
         bindSingleton { BookmarksRepositoryImpl(instance())}
         bindSingleton { SourcesRepositoryImpl(instance(), instance()) }
-        bindProvider { BookmarksViewModelFactory(instance(), instance()) }
+
         bindProvider { TopViewModelFactory(instance(), instance(), instance(), instance(), instance()) }
+        bindProvider { EverythingViewModelFactory(instance(), instance(), instance(), instance(), instance()) }
+        bindProvider { BookmarksViewModelFactory(instance(), instance()) }
         bindProvider { ArticleViewModelFactory(instance(), instance()) }
+
         bindSingleton { LocaleProviderImpl(instance()) }
         bindProvider { ShareProviderImpl() }
+
     }
 
 }

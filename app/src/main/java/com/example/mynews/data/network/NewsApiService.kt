@@ -35,45 +35,20 @@ interface NewsApiService {
         @Query("q") q: String? = null
     ): ArticleResponce
 
-    @GET("top-headlines")
-    suspend fun getTopHeadlinesForCategory(
-        @Query("apiKey") apiKey: String  = API_KEY,
-        @Query("category") category: String,
-        @Query("country") country: String = Locale.getDefault().country
-    ): ArticleResponce
-
-    @GET("top-headlines")
-    suspend fun getTopHeadlinesForSources(
-        @Query("sources") sources: String,
-        @Query("apiKey") apiKey: String,
-        @Query("country") country: String = Locale.getDefault().country
-    ): ArticleResponce
-
-    @GET("top-headlines")
-    suspend fun getTopHeadlinesForSearch(
-        @Query("apiKey") apiKey: String  = API_KEY,
-        @Query("q") query: String,
-        @Query("country") country: String = Locale.getDefault().country
-    ): ArticleResponce
-
-    @GET("top-headlines")
-    suspend fun getTopHeadlinesForCategoryForSearch(
-        @Query("apiKey") apiKey: String,
-        @Query("q") query: String,
-        @Query("category") category: String,
-        @Query("country") country: String = Locale.getDefault().country
-    ): ArticleResponce
 
     @GET("everything")
     suspend fun getEverything(
         @Query("apiKey") apiKey: String = API_KEY,
-        @Query("country") country: String = java.util.Locale.getDefault().country
+        @Query("language") language: String?,
+        @Query("sources") sources: String? = null,
+        @Query("q") q: String? = null
     ): ArticleResponce
 
     @GET("sources")
     suspend fun getSources(
         @Query("apiKey") apiKey: String = API_KEY,
         @Query("country") country: String? = null,
+        @Query("language") language: String? = null
     ): SourceResponce
 
     companion object{

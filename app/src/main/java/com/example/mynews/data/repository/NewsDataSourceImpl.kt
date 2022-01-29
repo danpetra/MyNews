@@ -33,4 +33,18 @@ class NewsDataSourceImpl(
             _apiServiceStatus.postValue(Status.ERROR)
         }
     }
+
+    override suspend fun fetchEverything(language: String?, sources: String?, q:String?) {
+        try{
+            val fetchedNews = apiService.getEverything(language = language, sources = sources, q = q)
+
+            _downloadedNews.postValue(fetchedNews)
+            _apiServiceStatus.postValue(Status.OK)
+            Log.i("NewsApi","Fetch everything no error, q $q")
+        } catch (error: IOException)
+        {
+            Log.e("NewsApi","Fetch everything error ${ error.message}")
+            _apiServiceStatus.postValue(Status.ERROR)
+        }
+    }
 }

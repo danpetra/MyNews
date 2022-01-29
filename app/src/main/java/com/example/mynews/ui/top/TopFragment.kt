@@ -33,10 +33,7 @@ class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener
     private var _binding: FragmentTopBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(TopViewModel::class.java)
