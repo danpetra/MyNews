@@ -11,11 +11,14 @@ buildscript {
         version_recyclerview = "1.0.0"
         version_room = "2.4.1"
         version_kodein = "7.10.0"
+        version_work = "2.7.0"
+
     }
     repositories {
         google()
         mavenCentral()
         jcenter()
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.4"

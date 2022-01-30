@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.drawerlayout.widget.DrawerLayout
@@ -18,6 +17,11 @@ import com.example.mynews.data.work.NOTIFICATION_TAG
 import com.example.mynews.data.work.NotificationWorker
 import com.example.mynews.data.work.NotificationWorker.Companion.NOTIFICATION_ID
 import java.util.*
+import android.content.SharedPreferences
+
+import android.content.Intent
+import androidx.preference.PreferenceManager
+import com.example.mynews.ui.intro.CustomOnboarder
 
 
 class MainActivity: AppCompatActivity() {
@@ -46,6 +50,21 @@ class MainActivity: AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val FIRST_START = "FIRST_START"
+
+        val getPrefs: SharedPreferences = PreferenceManager
+            .getDefaultSharedPreferences(baseContext)
+
+        val isFirstStart = getPrefs.getBoolean(FIRST_START, true)
+
+        if (isFirstStart) {
+            val i = Intent(this@MainActivity, CustomOnboarder::class.java)
+            startActivity(i)
+            val e = getPrefs.edit()
+            e.putBoolean(FIRST_START, false)
+            e.apply()
+        }
 
         val data = Data.Builder().putInt(NOTIFICATION_ID, 0).build()
 
