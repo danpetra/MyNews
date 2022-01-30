@@ -44,5 +44,6 @@
 
     <string name="channel_name"> Notification Channel </string>
     <string name="channel_description"> Notification Channel </string>
+    <string name="action_sources">Sources</string>
 
 </resources>

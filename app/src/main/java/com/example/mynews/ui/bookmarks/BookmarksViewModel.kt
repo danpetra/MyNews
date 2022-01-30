@@ -10,6 +10,7 @@ import com.example.mynews.data.entities.ArticleData
 import com.example.mynews.data.provider.ShareProvider
 import com.example.mynews.data.repository.BookmarksDataSource
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -35,7 +36,9 @@ class BookmarksViewModel(
 
         viewModelScope.launch(Dispatchers.IO) {
             try{
+                delay(300)
                 _articles.postValue(bookmarksDataSource.getAllBookmarksPlain("0"))
+                delay(300)
                 if (_articles.value == null){
                     _status.postValue("ok, null")}
                 else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}

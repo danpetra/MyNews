@@ -19,7 +19,11 @@
         android:id="@+id/nav_everything"
         android:name="com.example.mynews.ui.everything.EverythingFragment"
         android:label="@string/nav_drawer_everything"
-        tools:layout="@layout/fragment_everything" />
+        tools:layout="@layout/fragment_everything" >
+        <action
+            android:id="@+id/action_nav_everything_to_articleFragment"
+            app:destination="@id/articleFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_bookmarks"

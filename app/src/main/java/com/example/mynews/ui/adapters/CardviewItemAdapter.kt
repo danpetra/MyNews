@@ -1,9 +1,7 @@
 package com.example.mynews.ui.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.inflate
 import android.view.ViewGroup
 import android.widget.*
 import androidx.recyclerview.widget.DiffUtil
@@ -45,8 +43,8 @@ class CardviewItemAdapter(val articleListener: OnArticleListener): ListAdapter<A
             val bookmarkButton = binding.root.findViewById<ImageButton>(R.id.button_bookmark)
             bookmarkButton.setOnClickListener{
                 onArticleListener.onArticleBookmarkClick(adapterPosition)
-                if (bookmarkButton.tag == "1") {bookmarkButton.setImageResource(R.drawable.ic_bookmark_fill); bookmarkButton.tag = "2"}
-                else {bookmarkButton.setImageResource(R.drawable.ic_bookmark_border); bookmarkButton.tag = "1"}
+                if (bookmarkButton.tag == "1") {bookmarkButton.setImageResource(R.drawable.ic_bookmark_fill_gold); bookmarkButton.tag = "2"}
+                else {bookmarkButton.setImageResource(R.drawable.ic_bookmark_border_gold); bookmarkButton.tag = "1"}
             }
             val shareButton = binding.root.findViewById<ImageButton>(R.id.button_share)
             shareButton.setOnClickListener{

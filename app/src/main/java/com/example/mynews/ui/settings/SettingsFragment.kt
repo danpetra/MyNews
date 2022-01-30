@@ -51,6 +51,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         menu.removeItem(R.id.action_search)
         menu.removeItem(R.id.action_share)
         menu.removeItem(R.id.action_bookmark)
+        menu.removeItem(R.id.sources_menu_item)
     }
 
 

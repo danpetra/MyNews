@@ -1,18 +1,15 @@
 package com.example.mynews.ui
 
-import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mynews.R
-import com.example.mynews.data.entities.Article
 import com.example.mynews.data.entities.ArticleData
 import com.example.mynews.data.entities.Status
 import com.example.mynews.ui.adapters.CategoryButtonAdapter
@@ -26,7 +23,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?){
             .load(imgUri)
             /*.apply(
                 RequestOptions()
-                .placeholder(R.drawable.loading_animation)
+                .placeholder(R.drawable.animation_status_loading)
                 .error(R.drawable.ic_broken_image))*/
             .into(imgView)
     }
@@ -50,11 +47,11 @@ fun bindApiStatus(statusImageView: ImageView,
     when (status) {
         Status.LOADING -> {
             statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.loading_animation)
+            statusImageView.setImageResource(R.drawable.animation_status_loading)
         }
         Status.ERROR -> {
             statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_no_connection)
+            statusImageView.setImageResource(R.drawable.ic_status_no_connection)
         }
         Status.OK -> {
             statusImageView.visibility = View.GONE
@@ -112,7 +109,7 @@ fun bindLocaleStatus(statusImageView: ImageView,
     when (status) {
         Status.NO_COUNTRY -> {
             statusImageView.visibility = View.VISIBLE
-            statusImageView.setImageResource(R.drawable.ic_wrong_location)
+            statusImageView.setImageResource(R.drawable.ic_status_wrong_location)
         }
         else -> {
             statusImageView.visibility = View.GONE
@@ -137,15 +134,15 @@ fun bindLocaleStatus(statusTextView: TextView,
 
 @BindingAdapter("bookmarkImage")
 fun bindBookmark(button: ImageButton, isBookmarked: Boolean){
-   if(isBookmarked) {button.setImageResource(R.drawable.ic_bookmark_fill); button.setTag("2")}
-    else {button.setImageResource(R.drawable.ic_bookmark_border); button.setTag("1")}
+   if(isBookmarked) {button.setImageResource(R.drawable.ic_bookmark_fill_gold); button.setTag("2")}
+    else {button.setImageResource(R.drawable.ic_bookmark_border_gold); button.setTag("1")}
 }
 
 /*
 @BindingAdapter("menuBookmarkIcon")
 fun bindBookmarkMenu(button: MenuItem, isBookmarked: Boolean){
-    if(isBookmarked) {button.setIcon(R.drawable.ic_bookmark_fill_black)}
-    else {button.setIcon(R.drawable.ic_bookmark_border_black)}
+    if(isBookmarked) {button.setIcon(R.drawable.ic_bookmark_fill_white)}
+    else {button.setIcon(R.drawable.ic_bookmark_border_white)}
 }
 */
 

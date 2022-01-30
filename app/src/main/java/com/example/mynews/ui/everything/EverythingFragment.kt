@@ -65,7 +65,7 @@ class EverythingFragment: Fragment(), DIAware, CardviewItemAdapter.OnArticleList
         if (article != null) {
             Toast.makeText(context, "${article.title}", Toast.LENGTH_LONG).show()
             view?.findNavController()?.navigate(
-                TopFragmentDirections.actionNavTopToArticleFragment(
+                EverythingFragmentDirections.actionNavEverythingToArticleFragment(
                 article.url,article.title, article.author, article.content, article.urlToImage, article.publishedAt,
                 article.description, article.userId, article.isBookmarked, article.source?.id, article.source?.name))
         }

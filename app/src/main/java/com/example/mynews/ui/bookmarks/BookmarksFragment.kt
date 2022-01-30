@@ -46,6 +46,11 @@ class BookmarksFragment : Fragment(), DIAware, CardviewItemAdapter.OnArticleList
         return root
     }
 
+    override fun onResume() {
+        viewModel.getBookmarks()
+        super.onResume()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
@@ -56,6 +61,7 @@ class BookmarksFragment : Fragment(), DIAware, CardviewItemAdapter.OnArticleList
         menu.removeItem(R.id.action_share)
         menu.removeItem(R.id.action_search)
         menu.removeItem(R.id.action_bookmark)
+        menu.removeItem(R.id.sources_menu_item)
     }
 
 

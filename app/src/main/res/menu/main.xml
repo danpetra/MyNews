@@ -4,14 +4,14 @@
     <item
         android:id="@+id/sources_menu_item"
         android:orderInCategory="100"
-        android:title="Sources"
+        android:title="@string/action_sources"
         app:showAsAction="never"
         android:visible="true"/>
 
     <item android:id="@+id/action_search"
         android:title="Search"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_search_black"
+        android:icon="@drawable/ic_action_search"
         app:showAsAction="always"
         android:visible="true"
         app:actionViewClass="android.widget.SearchView" />
@@ -19,14 +19,14 @@
     <item android:id="@+id/action_share"
         android:title="Share"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_action_share"
         app:showAsAction="ifRoom"
         android:visible="true" />
 
     <item android:id="@+id/action_bookmark"
         android:title="Bookmark"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_baseline_bookmark_24"
+        android:icon="@drawable/ic_action_bookmark"
         app:showAsAction="ifRoom"
         android:visible="true" />
 </menu>
