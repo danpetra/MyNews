@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/nav_top"
         android:name="com.example.mynews.ui.top.TopFragment"
-        android:label="@string/menu_top"
+        android:label="@string/nav_drawer_top"
         tools:layout="@layout/fragment_top" >
         <action
             android:id="@+id/action_nav_top_to_articleFragment"
@@ -18,13 +18,13 @@
     <fragment
         android:id="@+id/nav_everything"
         android:name="com.example.mynews.ui.everything.EverythingFragment"
-        android:label="@string/menu_everything"
+        android:label="@string/nav_drawer_everything"
         tools:layout="@layout/fragment_everything" />
 
     <fragment
         android:id="@+id/nav_bookmarks"
         android:name="com.example.mynews.ui.bookmarks.BookmarksFragment"
-        android:label="@string/menu_bookmarks"
+        android:label="@string/nav_drawer_bookmarks"
         tools:layout="@layout/fragment_bookmarks" >
         <action
             android:id="@+id/action_nav_bookmarks_to_articleFragment"

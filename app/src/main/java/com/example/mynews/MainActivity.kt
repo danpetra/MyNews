@@ -1,7 +1,5 @@
 package com.example.mynews
 
-import android.content.pm.ApplicationInfo
-import android.icu.text.DateFormat.DAY
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -13,25 +11,26 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.ui.*
 import androidx.work.*
-import com.example.mynews.data.work.NotificationWorker.Companion.NOTIFICATION_WORK
+import com.example.mynews.data.provider.TimerProviderImpl
 import com.example.mynews.databinding.ActivityMainBinding
 import java.util.concurrent.TimeUnit
-import androidx.work.ExistingWorkPolicy.REPLACE
-import com.example.mynews.data.provider.NotificationsSettingsProviderImpl
 import com.example.mynews.data.work.NOTIFICATION_TAG
 import com.example.mynews.data.work.NotificationWorker
 import com.example.mynews.data.work.NotificationWorker.Companion.NOTIFICATION_ID
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var timerProviderImpl: TimerProviderImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        timerProviderImpl = TimerProviderImpl
+        timerProviderImpl.create(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -56,11 +55,21 @@ class MainActivity : AppCompatActivity() {
 
         //val notificationsSettingsProviderImpl = NotificationsSettingsProviderImpl(this)
         //if(notificationsSettingsProviderImpl.isSendingNotifications())
-            scheduleNotification(calculateDelay(15),data)
+          //  scheduleNotification(calculateDelay(15),data)
 
        /* Log.i("debuggable","Check debuggable")
         if (ApplicationInfo.FLAG_DEBUGGABLE!=0) Log.i("debuggable","Is debuggable")
         else Log.i("debuggable","Is not debuggable")*/
+    }
+
+    override fun onResume() {
+        timerProviderImpl.start()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        timerProviderImpl.stop()
+        super.onPause()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

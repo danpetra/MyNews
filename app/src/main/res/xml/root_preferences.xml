@@ -1,41 +1,47 @@
-
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory app:title="@string/location_header">
 
         <SwitchPreferenceCompat
             app:key="USE_CURRENT_LOCALE_PREFERENCE_KEY"
-            app:title="@string/current_location_switch"
-            app:summary="Allow the app to get your location"
+            app:title="@string/use_default_locale_pref_title"
+            app:summary="@string/use_default_locale_pref_summary"
             app:defaultValue="true"
             app:disableDependentsState="true"/>
 
         <ListPreference
+            app:key="COUNTRY_PREFERENCE_KEY"
             app:entries="@array/country_entries"
             app:entryValues="@array/country_values"
-            app:key="LOCALE_PREFERENCE_KEY"
-            app:title="Choose location (for top)"
-            app:summary="Choose your location from the list"
+            app:title="@string/country_pref_title"
+            app:summary="@string/country_pref_summary"
             app:dependency="USE_CURRENT_LOCALE_PREFERENCE_KEY" />
 
         <ListPreference
+            app:key="LANGUAGE_PREFERENCE_KEY"
             app:entries="@array/languages_entries"
             app:entryValues="@array/languages_values"
-            app:key="LANGUAGE_PREFERENCE_KEY"
-            app:title="Choose language (for everything)"
-            app:summary="Choose your language from the list"
+            app:title="@string/language_pref_title"
+            app:summary="@string/language_pref_summary"
             app:dependency="USE_CURRENT_LOCALE_PREFERENCE_KEY" />
 
     </PreferenceCategory>
 
-    <PreferenceCategory
-        app:title="Other">
+    <PreferenceCategory app:title="@string/other_header">
 
         <SwitchPreferenceCompat
             app:key="USE_STATIC_API_PREFERENCE_KEY"
-            app:title="Use static api"
-            app:summary="Get static news without connection with server"
+            app:title="@string/use_static_api_pref_title"
+            app:summary="@string/use_static_api_pref_summary"
             app:defaultValue="false" />
+
+        <Preference
+            app:selectable="true"
+            app:enabled="true"
+            app:key="LAST_SCREEN_TIME"
+            app:title="@string/screen_time_title"
+            app:summary="screen_time" />
+
 
        <!-- <SwitchPreferenceCompat
             app:key="show_notification"

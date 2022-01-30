@@ -1,34 +1,46 @@
 <resources>
     <string name="app_name">MyNews</string>
+
+    <!-- Naw Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="nav_drawer_top">Top</string>
+    <string name="nav_drawer_everything">Everything</string>
+    <string name="nav_drawer_bookmarks">Bookmarks</string>
+    <string name="nav_drawer_settings">Settings</string>
 
-    <string name="menu_top">Top</string>
-    <string name="menu_everything">Everything</string>
-    <string name="menu_bookmarks">Bookmarks</string>
     <!-- Preference Titles -->
     <string name="location_header">Location</string>
-    <string name="sync_header">User</string>
+    <string name="other_header">Other</string>
 
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <!-- Locale Preferences -->
+    <string name="use_default_locale_pref_title">Use current location</string>
+    <string name="use_default_locale_pref_summary">Get news for your current location if possible</string>
+    <string name="country_pref_title">Choose location (for top)</string>
+    <string name="country_pref_summary">Choose location to display top news from the list</string>
+    <string name="language_pref_title">Choose language (for everything)</string>
+    <string name="language_pref_summary">Choose language to display everything news from the list</string>
 
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
+    <!-- Other Preferences -->
+    <string name="use_static_api_pref_title">Use Static Api</string>
+    <string name="use_static_api_pref_summary">Get static news without connection with server</string>
+    <string name="screen_time_title">Total Screen Time</string>
+
+
+
+
     <string name="attachment_title">Download incoming attachments</string>
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
-    <string name="current_location_switch">Use current location</string>
-    <string name="menu_settings">Settings</string>
+
+
     <string name="no_country_text"><![CDATA[Sorry, but NewsApi can\'t provide you with latest news for your current region. You can change country manually from available in Settings -> Location]]></string>
     <string name="no_connection_text">Error fetching from a server. Try to check your Internet connection</string>
-    <string name="updating_text">Updating...</string>
+    <string name="updating_text">Updating…</string>
 
     <string name="channel_name"> Notification Channel </string>
     <string name="channel_description"> Notification Channel </string>

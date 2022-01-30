@@ -7,13 +7,12 @@ import java.util.*
 
 class LocaleProviderImpl(context: Context) : LocaleProvider {
     private val appContext = context.applicationContext
-
     private val preferences: SharedPreferences
     get() = PreferenceManager.getDefaultSharedPreferences(appContext)
 
     override fun getLocale(): String {
         val useDeviceLocation = preferences.getBoolean(USE_CURRENT_LOCALE_PREFERENCE_KEY, true)
-        var selectedLocale = preferences.getString(LOCALE_PREFERENCE_KEY, "us")
+        var selectedLocale = preferences.getString(COUNTRY_PREFERENCE_KEY, "us")
         if (useDeviceLocation) selectedLocale = Locale.getDefault().country.lowercase(Locale.getDefault())
         return selectedLocale.toString()
     }

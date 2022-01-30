@@ -10,6 +10,7 @@ import com.example.mynews.data.network.NewsApiService
 import com.example.mynews.data.provider.LocaleProviderImpl
 import com.example.mynews.data.provider.ShareProviderImpl
 import com.example.mynews.data.provider.SharedPreferencesProviderImpl
+import com.example.mynews.data.provider.TimerProviderImpl
 import com.example.mynews.data.repository.BookmarksDataSourceImpl
 import com.example.mynews.data.repository.BookmarksRepositoryImpl
 import com.example.mynews.data.repository.sources.SourcesDataSourceImpl
