@@ -1,13 +1,10 @@
 package com.example.mynews.data.repository
 
-import android.content.pm.ApplicationInfo
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.mynews.data.db.bookmarks.BookmarkedNewsDatabaseDao
 import com.example.mynews.data.entities.Article
 import com.example.mynews.data.entities.ArticleData
-import com.example.mynews.data.entities.ArticleDataCache
 import com.example.mynews.data.entities.Status
 import com.example.mynews.data.provider.LocaleProvider
 import com.example.mynews.data.provider.SharedPreferencesProvider
@@ -74,7 +71,7 @@ class NewsRepositoryImpl(
     }
 
     companion object{
-        val TOP = 1
-        val EVERYTHING = 2
+        const val TOP = 1
+        const val EVERYTHING = 2
     }
 }

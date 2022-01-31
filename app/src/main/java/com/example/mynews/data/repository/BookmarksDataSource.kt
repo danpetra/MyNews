@@ -11,5 +11,5 @@ interface BookmarksDataSource {
     suspend fun setBookmark(article: ArticleData)
     suspend fun deleteBookmark(key: String)
     suspend fun clearBookmarks()
-    fun getStatus(): LiveData<Status>
+
 }

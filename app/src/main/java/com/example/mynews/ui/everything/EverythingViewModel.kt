@@ -33,10 +33,6 @@ class EverythingViewModel(
     val status: LiveData<String>
         get() = _status
 
-    private val _userStatus = MutableLiveData<String>()
-    val userStatus: LiveData<String>
-        get() = _userStatus
-
     private val _showEnterText = MutableLiveData<Boolean>()
     val showEnterText: LiveData<Boolean>
         get() = _showEnterText
@@ -73,16 +69,14 @@ class EverythingViewModel(
         viewModelScope.launch(Dispatchers.IO){
             try{
                 _articles.postValue(newsRepository.getNews(EVERYTHING, language = lang, q = query).value)
-                if (_articles.value == null){_status.postValue("ok, null")}
-                else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}
-
                 _showEnterText.postValue(false)
-                _status.postValue("ok, ${currentLang}")
+                _status.postValue("ok, $currentLang")
+                Log.i("NewsApi","Get everything in fragment, ${_status.value}")
             } catch(e: Exception){
                 _articles.postValue(ArrayList())
                 _showEnterText.postValue(true)
                 _status.postValue("error $e")
-                Log.e("NewsApi","Get everything news in fragment, error $e")
+                Log.e("NewsApi","Get everything in fragment, error $e")
             }
         }
     }
@@ -91,14 +85,12 @@ class EverythingViewModel(
         viewModelScope.launch(Dispatchers.IO){
             try{
                 _articles.postValue(newsRepository.getNews(EVERYTHING, language = null, source = currentSource, q = query).value)
-                if (_articles.value == null){_status.postValue("ok, null")}
-                else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}
-
-                _status.postValue("ok, ${currentLang}")
+                _status.postValue("ok")
+                Log.i("NewsApi","Get everything news in fragment, ${_status.value}")
             } catch(e: Exception){
                 _articles.postValue(ArrayList())
                 _status.postValue("error $e")
-                Log.e("NewsApi","Get everythign news in fragment, error $e")
+                Log.e("NewsApi","Get everything news in fragment, error $e")
             }
         }
     }
@@ -107,8 +99,6 @@ class EverythingViewModel(
         return viewModelScope.launch(Dispatchers.IO){
             try{
                 sources = sourcesRepository.getSources(locale).value
-                Log.i("source", "getSources in viewModel, size ${sources?.size}")
-                Log.i("source", "getSources in viewModel, size db  ${sourcesRepository.getSources(locale).value?.size}")
             } catch(e: Exception){
                 Log.e("source","Get sources in fragment, error $e")
             }

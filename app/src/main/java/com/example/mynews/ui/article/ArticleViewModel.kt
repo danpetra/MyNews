@@ -1,4 +1,4 @@
-package com.example.news.article
+package com.example.mynews.ui.article
 
 import android.content.Intent
 import androidx.lifecycle.ViewModel

@@ -138,11 +138,4 @@ fun bindBookmark(button: ImageButton, isBookmarked: Boolean){
     else {button.setImageResource(R.drawable.ic_bookmark_border_gold); button.setTag("1")}
 }
 
-/*
-@BindingAdapter("menuBookmarkIcon")
-fun bindBookmarkMenu(button: MenuItem, isBookmarked: Boolean){
-    if(isBookmarked) {button.setIcon(R.drawable.ic_bookmark_fill_white)}
-    else {button.setIcon(R.drawable.ic_bookmark_border_white)}
-}
-*/
 

@@ -39,10 +39,8 @@ class BookmarksViewModel(
                 delay(300)
                 _articles.postValue(bookmarksDataSource.getAllBookmarksPlain("0"))
                 delay(300)
-                if (_articles.value == null){
-                    _status.postValue("ok, null")}
-                else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}
-                else{_status.postValue("ok")}
+                _status.postValue("ok")
+                Log.i("db","Get bookmarks in fragment, ${_status.value}")
             } catch(e: Exception){
                 _articles.postValue(ArrayList())
                 _status.postValue("error $e")

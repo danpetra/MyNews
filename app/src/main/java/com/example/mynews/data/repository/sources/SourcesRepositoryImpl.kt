@@ -20,7 +20,6 @@ class SourcesRepositoryImpl(
     override suspend fun getSources(country: String?, category: String?): LiveData<List<SourceData>> {
 
         if(sourcesDatabaseDao.getAllPlain()?.size == 0) fillDatabase().join()
-        Log.i("source","${sourcesDatabaseDao.getAllPlain()?.size}" )
 
         country?.let { cou ->
             category?.let { cat ->

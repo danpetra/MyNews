@@ -26,8 +26,6 @@ import org.kodein.di.android.x.androidXModule
 class MyApplication() : Application(), DIAware {
     override val di = DI.lazy{
         import(androidXModule(this@MyApplication))
-        //bindSingleton { CurrentNewsDatabase.getInstance(instance())}
-        //bindSingleton { instance<CurrentNewsDatabase>().currentNewsDatabaseDao() }
         bindSingleton { BookmarkedNewsDatabase.getInstance(instance())}
         bindSingleton { instance<BookmarkedNewsDatabase>().bookmarkedNewsDatabaseDao() }
         bindSingleton { SourcesDatabase.getInstance(instance())}

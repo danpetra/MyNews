@@ -66,15 +66,6 @@ class MainActivity: AppCompatActivity() {
             e.apply()
         }
 
-        val data = Data.Builder().putInt(NOTIFICATION_ID, 0).build()
-
-        //val notificationsSettingsProviderImpl = NotificationsSettingsProviderImpl(this)
-        //if(notificationsSettingsProviderImpl.isSendingNotifications())
-          //  scheduleNotification(calculateDelay(15),data)
-
-       /* Log.i("debuggable","Check debuggable")
-        if (ApplicationInfo.FLAG_DEBUGGABLE!=0) Log.i("debuggable","Is debuggable")
-        else Log.i("debuggable","Is not debuggable")*/
     }
 
     override fun onResume() {
@@ -103,48 +94,4 @@ class MainActivity: AppCompatActivity() {
                 || super.onOptionsItemSelected(item)
     }
 
-    /** Shcedule Notifications */
-
-    private fun calculateDelay(hourOfDay: Int): Long{
-        val now = Date()
-        val calendar = GregorianCalendar()
-        Log.i(NOTIFICATION_TAG, "Time is set ${calendar.time}")
-        //var hourPlus = if (calendar.get(Calendar.HOUR_OF_DAY) < 12) hourOfDay else hourOfDay - 12
-        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-        calendar.set(Calendar.MINUTE, 40)
-        calendar.set(Calendar.SECOND, 0)
-        Log.i(NOTIFICATION_TAG, "Time is set ${calendar.time}")
-        var date = calendar.time
-        if (date.before(now)) {
-            calendar.add(Calendar.DATE, 1)
-            date = calendar.time
-            Log.i(NOTIFICATION_TAG,"Added")
-        }
-        Log.i(NOTIFICATION_TAG, "Time is set ${calendar.time}")
-        Log.i(NOTIFICATION_TAG, "Time is set ${calendar.get(Calendar.DATE)}, ${calendar.get(Calendar.HOUR)}, ${calendar.get(Calendar.MINUTE)}")
-        val timeDifference = date.time - now.time
-        Log.i(NOTIFICATION_TAG, "Time diff ${timeDifference}")
-        return timeDifference
-    }
-
-    private fun scheduleNotification(delay: Long, data: Data) {
-
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.UNMETERED)
-            .build()
-
-        val notificationWork = OneTimeWorkRequest.Builder(NotificationWorker::class.java)
-            .setInitialDelay(60000, TimeUnit.MILLISECONDS)
-            .setInputData(data)
-            .addTag("Notification_Work_Tag")
-            .setConstraints(constraints)
-            .build()
-
-        val instanceWorkManager = WorkManager.getInstance(this)
-        instanceWorkManager.enqueue(notificationWork).state
-            .observe(this) { state ->
-                Log.i(NOTIFICATION_TAG, "ForegroundWorker: $state")
-            }
-        Log.i(NOTIFICATION_TAG, "Notification is scheduled with delay ${delay} sec")
-    }
 }

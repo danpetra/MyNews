@@ -10,7 +10,6 @@ import com.example.mynews.data.entities.ArticleData
 import com.example.mynews.data.entities.Source
 import com.example.mynews.data.network.MyWebViewClient
 import com.example.mynews.databinding.FragmentArticleBinding
-import com.example.news.article.ArticleViewModel
 import org.kodein.di.DIAware
 import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance

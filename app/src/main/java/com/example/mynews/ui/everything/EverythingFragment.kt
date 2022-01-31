@@ -170,7 +170,6 @@ class EverythingFragment: Fragment(), DIAware, CardviewItemAdapter.OnArticleList
 
                     .show()
             }
-
         }
         dialog.show()
     }

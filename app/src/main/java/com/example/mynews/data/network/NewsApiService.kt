@@ -1,22 +1,14 @@
 package com.example.mynews.data.network
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import com.example.mynews.data.entities.ArticleData
 import com.example.mynews.data.entities.ArticleResponce
 import com.example.mynews.data.entities.SourceResponce
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.Deferred
-import okhttp3.Interceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.util.*
-import retrofit2.converter.gson.GsonConverterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import retrofit2.Response
 
 val API_KEY = "7da15afd85a443ab8a7e06ce2778bcc5"//"824bee49e440427989656cf5a21d9ded"
 private val BASE_URL = "https://newsapi.org/v2/"
@@ -34,7 +26,6 @@ interface NewsApiService {
         @Query("sources") sources: String? = null,
         @Query("q") q: String? = null
     ): ArticleResponce
-
 
     @GET("everything")
     suspend fun getEverything(
@@ -63,10 +54,3 @@ interface NewsApiService {
         }
     }
 }
-
-
-/*object NewsApi{
-    val retrofitService: NewsApiService by lazy{
-        retrofit.create(NewsApiService::class.java)
-    }
-}*/

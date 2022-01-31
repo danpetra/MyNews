@@ -68,8 +68,6 @@ class CardviewItemAdapter(val articleListener: OnArticleListener): ListAdapter<A
     }
 
 }
-class ArticleListener(val clickListener: (article: Article) -> Unit) {
-    fun onClick(article: Article) = clickListener(article)
-}
+
 
 

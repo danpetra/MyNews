@@ -41,19 +41,13 @@ class NewsDataSourceImpl(
 
     override suspend fun fetchCache(country: String?, category: String?, sources: String?, q:String?) {
 
-        Log.i("statApi", "start")
-        //val jsonText = this.javaClass.classLoader?.getResource("raw/static_json_responce.json")?.readText()
-        //val jsonText: String = File("static_json_responce.json").readText()
-
         val jsonText = STATIC_JSON_RESPONSE
 
-        Log.i("statApi", "${jsonText.isNullOrEmpty()}")
         val moshi = Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
             .build()
         val jsonAdapter: JsonAdapter<ArticleResponce> = moshi.adapter(ArticleResponce::class.java)
         jsonText?.let {
-            Log.i("statApi", "json text not null")
             val fetchedNews = jsonAdapter.fromJson(jsonText)
             fetchedNews?.let { news ->
                 _downloadedNews.postValue(news)

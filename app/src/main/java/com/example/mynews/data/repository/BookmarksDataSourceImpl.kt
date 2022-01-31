@@ -33,8 +33,5 @@ class BookmarksDataSourceImpl(
         bookmarkedNewsDatabaseDao.clear()
     }
 
-    override fun getStatus(): LiveData<Status> {
-        TODO("Not yet implemented")
-    }
 
 }

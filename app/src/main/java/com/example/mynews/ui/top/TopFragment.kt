@@ -24,7 +24,7 @@ import org.kodein.di.android.x.closestDI
 import org.kodein.di.instance
 
 
-class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener, CategoryButtonAdapter.OnCategoryButtonListener  {
+class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener  {
 
     override val di by closestDI()
     private val viewModelFactory: TopViewModelFactory by instance()
@@ -44,7 +44,7 @@ class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener
         setHasOptionsMenu(true)
 
         binding.articlesList.adapter = CardviewItemAdapter(this)
-        binding.buttonList.adapter = CategoryButtonAdapter(this, ButtonListener{
+        binding.buttonList.adapter = CategoryButtonAdapter(ButtonListener{
             category-> run{viewModel.currentCategory = when (category)
         {
             viewModel.ALL_CATEGORIES -> null
@@ -94,16 +94,6 @@ class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener
         }
     }
 
-    override fun onButtonClick(position: Int) {
-        val category = viewModel.categories.get(position)
-        viewModel.currentSource = null
-        viewModel.currentCategory = when (category)
-        {
-            viewModel.ALL_CATEGORIES -> null
-            else -> category
-        }
-        viewModel.getNews()
-    }
 
     /**  override Menu  **/
 

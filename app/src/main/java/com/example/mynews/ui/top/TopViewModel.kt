@@ -85,10 +85,8 @@ class TopViewModel(
         viewModelScope.launch(Dispatchers.IO){
             try{
                 _articles.postValue(newsRepository.getNews(TOP, country = locale, category = currentCategory, q = query).value)
-                if (_articles.value == null){_status.postValue("ok, null")}
-                else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}
-
-                _status.postValue("ok, ${currentLocale}")
+                _status.postValue("ok, $currentLocale")
+                Log.i("NewsApi","Get news in fragment, ${_status.value}")
             } catch(e: Exception){
                 _articles.postValue(ArrayList())
                 _status.postValue("error $e")
@@ -101,11 +99,8 @@ class TopViewModel(
         viewModelScope.launch(Dispatchers.IO){
             try{
                 _articles.postValue(newsRepository.getNews(TOP, country = null, source = currentSource, q = query).value)
-                //_articles = newsRepository.getNews(TOP, country = null, source = currentSource, q = query)
-                if (_articles.value == null){_status.postValue("ok, null")}
-                else if(_articles.value!!.isEmpty()){_status.postValue("ok, empty")}
-
-                _status.postValue("ok, ${currentLocale}")
+                _status.postValue("ok")
+                Log.i("NewsApi","Get news in fragment, ${_status.value}")
             } catch(e: Exception){
                 //_articles.postValue(ArrayList())
                 _status.postValue("error $e")
@@ -118,13 +113,10 @@ class TopViewModel(
         return viewModelScope.launch(Dispatchers.IO){
             try{
                 sources = sourcesRepository.getSources(locale, currentCategory).value
-                Log.i("source", "getSources in viewModel, size ${sources?.size}")
-                Log.i("source", "getSources in viewModel, size db  ${sourcesRepository.getSources(locale, currentCategory).value?.size}")
             } catch(e: Exception){
                 Log.e("source","Get sources in fragment, error $e")
             }
         }
-
     }
 
     fun getShareIntent(message: String): Intent {
