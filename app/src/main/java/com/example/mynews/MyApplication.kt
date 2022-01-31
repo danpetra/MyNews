@@ -15,7 +15,6 @@ import com.example.mynews.data.repository.BookmarksDataSourceImpl
 import com.example.mynews.data.repository.BookmarksRepositoryImpl
 import com.example.mynews.data.repository.sources.SourcesDataSourceImpl
 import com.example.mynews.data.repository.sources.SourcesRepositoryImpl
-import com.example.mynews.data.work.NotificationWorker
 import com.example.mynews.ui.article.ArticleViewModelFactory
 import com.example.mynews.ui.bookmarks.BookmarksViewModelFactory
 import com.example.mynews.ui.everything.EverythingViewModelFactory
