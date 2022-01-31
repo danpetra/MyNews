@@ -10,7 +10,9 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.PreferenceScreen
+import com.example.mynews.BuildConfig
 import com.example.mynews.R
+import com.example.mynews.data.provider.FIRST_START
 import com.example.mynews.data.provider.LAST_SCREEN_TIME
 import com.example.mynews.data.provider.TimerProviderImpl
 import com.example.mynews.data.provider.TimerProviderImpl.timeToString
@@ -28,9 +30,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
     ): View? {
         setHasOptionsMenu(true)
         val staticApiPreference: Preference? = findPreference(USE_STATIC_API_PREFERENCE_KEY)
+        val introPreference: Preference? = findPreference(FIRST_START)
         val preferenceScreen: PreferenceScreen = preferenceScreen
-        if (ApplicationInfo.FLAG_DEBUGGABLE==0) preferenceScreen.removePreference(staticApiPreference)
+        if (!BuildConfig.DEBUG) {
+            staticApiPreference?.isVisible = false
+            introPreference?.isVisible = false
+        }
         else Log.i("debuggable","preferenceScreen")
+
 
         return super.onCreateView(inflater, container, savedInstanceState)
     }

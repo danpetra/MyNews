@@ -26,6 +26,8 @@
     <!-- Other Preferences -->
     <string name="use_static_api_pref_title">Use Static Api</string>
     <string name="use_static_api_pref_summary">Get static news without connection with server</string>
+    <string name="intro_pref_title">Simulate First Start</string>
+    <string name="intro_pref_summary">Show Intro the next time the app will be launched</string>
     <string name="screen_time_title">Total Screen Time</string>
 
     <!-- Status texts -->

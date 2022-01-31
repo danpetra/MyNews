@@ -13,14 +13,11 @@ import androidx.work.*
 import com.example.mynews.data.provider.TimerProviderImpl
 import com.example.mynews.databinding.ActivityMainBinding
 import java.util.concurrent.TimeUnit
-import com.example.mynews.data.work.NOTIFICATION_TAG
-import com.example.mynews.data.work.NotificationWorker
-import com.example.mynews.data.work.NotificationWorker.Companion.NOTIFICATION_ID
 import java.util.*
 import android.content.SharedPreferences
-
 import android.content.Intent
 import androidx.preference.PreferenceManager
+import com.example.mynews.data.provider.FIRST_START
 import com.example.mynews.ui.intro.CustomOnboarder
 
 
@@ -51,7 +48,6 @@ class MainActivity: AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val FIRST_START = "FIRST_START"
 
         val getPrefs: SharedPreferences = PreferenceManager
             .getDefaultSharedPreferences(baseContext)
@@ -66,6 +62,9 @@ class MainActivity: AppCompatActivity() {
             e.apply()
         }
 
+        Log.i("debuggable","Check debug")
+        if (BuildConfig.DEBUG) Log.i("debuggable","Is debug")
+        else Log.i("debuggable","Is not debug")
     }
 
     override fun onResume() {

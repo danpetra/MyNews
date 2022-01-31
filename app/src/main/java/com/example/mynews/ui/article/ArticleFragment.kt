@@ -56,6 +56,7 @@ class ArticleFragment : Fragment(), DIAware {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         menu.removeItem(R.id.action_search)
+        menu.removeItem(R.id.sources_menu_item)
         val bookmarkItem = menu.findItem(R.id.action_bookmark)
         if (args.isBookmarked) bookmarkItem.setIcon(R.drawable.ic_bookmark_fill_white)
         else bookmarkItem.setIcon(R.drawable.ic_bookmark_border_white)

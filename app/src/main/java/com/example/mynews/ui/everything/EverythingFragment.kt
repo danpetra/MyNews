@@ -63,7 +63,6 @@ class EverythingFragment: Fragment(), DIAware, CardviewItemAdapter.OnArticleList
     override fun onArticleClick(position: Int) {
         val article  = binding.viewModel?.articles?.value?.get(position)
         if (article != null) {
-            Toast.makeText(context, "${article.title}", Toast.LENGTH_LONG).show()
             view?.findNavController()?.navigate(
                 EverythingFragmentDirections.actionNavEverythingToArticleFragment(
                 article.url,article.title, article.author, article.content, article.urlToImage, article.publishedAt,
@@ -81,7 +80,6 @@ class EverythingFragment: Fragment(), DIAware, CardviewItemAdapter.OnArticleList
     override fun onArticleBookmarkClick(position: Int) {
         val article  = binding.viewModel?.articles?.value?.get(position)
         if (article != null) {
-            //Toast.makeText(context, "${article.title} added to favorites", Toast.LENGTH_LONG).show()
             article.isBookmarked = article.isBookmarked != true
             viewModel.onBookmarkEvent(article)
         }

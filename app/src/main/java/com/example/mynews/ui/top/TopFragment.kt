@@ -71,7 +71,6 @@ class TopFragment() : Fragment(), DIAware, CardviewItemAdapter.OnArticleListener
     override fun onArticleClick(position: Int) {
         val article  = binding.viewModel?.articles?.value?.get(position)
         if (article != null) {
-            Toast.makeText(context, "${article.title}", Toast.LENGTH_LONG).show()
             view?.findNavController()?.navigate(TopFragmentDirections.actionNavTopToArticleFragment(
                 article.url,article.title, article.author, article.content, article.urlToImage, article.publishedAt,
                 article.description, article.userId, article.isBookmarked, article.source?.id, article.source?.name))
